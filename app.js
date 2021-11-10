@@ -13,7 +13,7 @@ const loginRouter = require('./modules/passport/loginRouter');
 const app = express();
 
 const connection = require("./database");
-connection.connect;
+//connection.connect;
 
 app.use(logger('dev'));
 app.use(express.json());
