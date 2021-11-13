@@ -12,6 +12,16 @@ exports.list = async function(req, res) {
     }
 };
 
+exports.detail = function(req,res) {
+    const id = req.params.id;
+    classService.detail(parseInt(id), (result) => {
+        if(result) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json({message: "The class with the given ID wasn't found"});
+        }
+    });
+}
 exports.create = async function(req, res) {
     const result = await classService.create(req.body.name);
 
