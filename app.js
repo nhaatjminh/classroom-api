@@ -9,7 +9,7 @@ const passport = require('./modules/passport');
 const classesRouter = require('./api/classes');
 const accountsRouter = require('./api/accounts');
 const loginRouter = require('./modules/passport/loginRouter');
-
+const authRouter = require('./api/auth');
 const app = express();
 
 const connection = require("./database");
@@ -26,7 +26,7 @@ app.use(passport.initialize());
 app.use('/classes', passport.authenticate('jwt', {session: false}), classesRouter);
 app.use('/accounts', accountsRouter);
 app.use('/login', loginRouter);
-
+app.use('/auth', authRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -45,5 +45,4 @@ app.use(function(err, req, res, next) {
       error: err
     });
 });
-
 module.exports = app;

@@ -10,8 +10,10 @@ Account.getAccounts = () => db.execute(
     + "FROM accounts");
 
 Account.createAccount = (accObj) => db.execute(
-    "INSERT INTO accounts (username, password) "
-    + `VALUES ('${accObj.username}', '${accObj.password}')`);
+    "INSERT INTO accounts (username, password, googleID, facebookID, email) "
+    + `VALUES ('${accObj.username}', '${accObj.password}', '${accObj.googleID}', '${accObj.facebookID}', '${accObj.email}')`);
 
+Account.updateInfoForOneField = (field, infor, idOfobj) => db.execute(
+    `UPDATE accounts SET ${field}='${infor}' WHERE id = '${idOfobj}'`);
 
 module.exports = Account;
