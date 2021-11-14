@@ -9,7 +9,7 @@ const passport = require('./modules/passport');
 const classesRouter = require('./api/classes');
 const accountsRouter = require('./api/accounts');
 const loginRouter = require('./modules/passport/loginRouter');
-const authRouter = require('./api/auth');
+const authRouter = require('./api/authenticator');
 const app = express();
 
 const connection = require("./database");
@@ -20,7 +20,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
-
 app.use(passport.initialize());
 
 app.use('/classes', passport.authenticate('jwt', {session: false}), classesRouter);
@@ -45,4 +44,5 @@ app.use(function(err, req, res, next) {
       error: err
     });
 });
+
 module.exports = app;

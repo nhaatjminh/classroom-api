@@ -1,5 +1,16 @@
 const accountService = require('./accountService');
 
+exports.getInfo = async function(req, res) {
+    const id = req.params.id;
+    const accs = await accountService.getInfoByUserId(id);
+
+    if (accs) {
+        res.status(200).json(accs);
+    } else {
+        res.status(404).json({message: 'No accounts available!'});
+    }
+};
+
 exports.list = async function(req, res) {
     const accs = await accountService.list();
 
@@ -11,12 +22,29 @@ exports.list = async function(req, res) {
 };
 
 exports.create = async function(req, res) {
-    const newAcc = req.body
+    const newAcc = req.body;
     const result = await accountService.create(newAcc);
 
     if (result) {
-        res.status(201).json({message: 'Class created!', id: result.insertId});
+        res.status(201).json({message: 'Account created!', id: result.insertId});
     } else {
-        res.status(500).json({message: 'Error creating class!'});
+        res.status(500).json({message: 'Error Account class!'});
+    }
+};
+
+exports.update = async function(req, res) {
+    const editInfo = {
+        id: req.user.id,
+        name: req.body.name,
+        phone: req.body.phone,
+        address: req.body.address
+    }
+
+    const result = await accountService.updateInfo(editInfo);
+
+    if (result) {
+        res.status(201).json({message: 'Account updated!', result: result});
+    } else {
+        res.status(500).json({message: 'Error updating account!'});
     }
 };

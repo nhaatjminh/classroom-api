@@ -5,6 +5,11 @@ const Account = (acc) => {
     this.password = acc.password;
 }
 
+Account.getInfoByUserId = (id) => db.execute(
+    `SELECT * 
+     FROM accounts
+     WHERE id = '${id}'`);
+
 Account.getAccounts = () => db.execute(
     "SELECT *" 
     + "FROM accounts");
@@ -15,5 +20,10 @@ Account.createAccount = (accObj) => db.execute(
 
 Account.updateInfoForOneField = (field, infor, idOfobj) => db.execute(
     `UPDATE accounts SET ${field}='${infor}' WHERE id = '${idOfobj}'`);
+
+Account.updateInfo = (userinfo) => db.execute(
+    `UPDATE accounts
+     SET name ='${userinfo.name}', phone ='${userinfo.phone}', address ='${userinfo.address}'
+     WHERE id = '${userinfo.id}'`);
 
 module.exports = Account;
