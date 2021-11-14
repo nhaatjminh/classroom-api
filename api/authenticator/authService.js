@@ -1,8 +1,9 @@
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const axios = require('axios')
-const accountService = require('../../api/accounts/accountService');
+const axios = require('axios');
+const accountService = require('../accounts/accountService');
 const jwt = require('jsonwebtoken');
+
 exports.googleSignIn = async (tokenID) => {
     const ticket = await client.verifyIdToken({
         idToken: tokenID,
@@ -51,7 +52,7 @@ exports.googleSignIn = async (tokenID) => {
             })
         };
         
-        return result
+        return result;
     }
 }
 
