@@ -10,6 +10,7 @@ const classesRouter = require('./api/classes');
 const accountsRouter = require('./api/accounts');
 const loginRouter = require('./modules/passport/loginRouter');
 const authRouter = require('./api/authenticator');
+const emailRouter = require('./api/email');
 const app = express();
 
 const connection = require("./database");
@@ -26,6 +27,7 @@ app.use('/classes', passport.authenticate('jwt', {session: false}), classesRoute
 app.use('/accounts', accountsRouter);
 app.use('/login', loginRouter);
 app.use('/auth', authRouter);
+app.use('/sendEmail', emailRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
