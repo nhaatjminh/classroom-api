@@ -2,7 +2,7 @@ const accountsModel = require('./accountModel');
 
 exports.list = () => accountsModel.getAccounts();
 
-exports.getInfoByUserId = (id) => accountsModel.getInfoByUserId(id);
+exports.getInfoByUserId = (id) => accountsModel.getInfoByUserId(id)[0] ?? null;
 
 exports.findAcc = async (username) => {
     var accs = await accountsModel.getAccounts();
