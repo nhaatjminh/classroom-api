@@ -12,4 +12,6 @@ router.post('/', classController.create);
 /* GET detail class. */
 router.get('/detail/:id', classController.detail);
 
+router.get('/invitelink/:id', classController.invitelink);
+router.get('/acceptlink/:tokenlink/:tokenid',classController.acceptlink);
 module.exports = router;
