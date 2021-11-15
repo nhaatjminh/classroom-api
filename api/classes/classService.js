@@ -13,3 +13,5 @@ exports.isCreatorOfClass = async (teacherId, classId) => {
     
     return (creator === teacherId);
 }
+
+exports.getMembersByClassId = (classId, role) => classesModel.getMembersByClassId(classId, role);
