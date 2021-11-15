@@ -1,7 +1,8 @@
 const classService = require('./classService');
 const classMemberService = require('./classMemberService');
 const authorization = require('../../modules/authorization');
-
+const jwt_decode = require('jwt-decode');
+const jwt = require('jsonwebtoken');
 exports.list = async function(req, res) {
     const classes = await classService.list(req.user.id);
 
@@ -41,3 +42,34 @@ exports.create = async function(req, res) {
         res.status(500).json({message: 'Error creating class!'});
     }
 };
+exports.invitelink = async function(req,res) {
+    
+    const classes = await classService.list(req.params.id);
+    
+    if (classes) {
+        const token= jwt.sign({
+            id: req.params.id
+        }, 'secret', {
+            expiresIn: '24h'
+        })
+        let url = 'https://localhost:5000/classes/acceptlink/'+ token;
+        res.status(200).json(url);
+    } else {
+        res.status(404).json({message: 'No classes available!'});
+    }
+}
+exports.acceptlink = async function(req,res) {
+    const linkid = req.params.tokenlink;
+    const payloadidclass = jwt_decode(linkid);
+    const idacc = req.params.tokenid;
+    const payloadIDAcc = jwt_decode(idacc);
+    
+    const exist = await classMemberService.findOneAcc(payloadIDAcc.id, payloadidclass.id);
+    if (exist.length <= 0) {
+        await classMemberService.addClassMember(payloadidclass.id,payloadIDAcc.id,'student');
+        return res.json("success");
+    } else {
+        res.json("Account Exists in class");
+    }
+    
+}
