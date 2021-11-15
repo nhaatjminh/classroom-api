@@ -2,8 +2,8 @@ const emailService = require('./emailService');
 
 exports.sendEmail = async (req, res) => {
     const recipient = req.body.recipient;
-    const invitelink = req.body.invitelink;
-    const result = await emailService.sendEmail(recipient, invitelink);
+    const inviteLink = req.body.inviteLink;
+    const result = await emailService.sendEmail(recipient, inviteLink);
     
     if (result) {
         res.status(202).json({message: 'Email sent!'});
