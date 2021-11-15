@@ -16,10 +16,14 @@ exports.googleSignIn = async (tokenID) => {
     const mail = payload['email'];
     
     const ggID = payload['sub'];
+    const name = payload['name'];
     const acc = await accountService.findAccWithMail(mail);
     if (acc) {
         if (acc.googleID == '') {
             await accountService.updateInfoForOneField('googleID', ggID, acc.id)
+        }
+        if (acc.name == '') {
+            await accountService.updateInfoForOneField('name', name, acc.id)
         }
         const result ={
             user: acc.username,
@@ -73,6 +77,9 @@ exports.facebookSignIn = async (tokenID, callback) => {
                 await accountService.create(newAccount);
             } else if (acc.facebookID == '' && acc != null) {
                 await accountService.updateInfoForOneField('facebookID', data.id, acc.id)
+            }
+            if (acc.name == '' && acc != null) {
+                await accountService.updateInfoForOneField('name', data.name, acc.id)
             }
             const result ={
                 user: acc.username,
