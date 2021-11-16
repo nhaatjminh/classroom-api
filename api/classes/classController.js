@@ -17,7 +17,15 @@ exports.detail = function(req,res) {
 
     const id = req.params.id;
     classService.detail(parseInt(id), (result) => {
+        
         if(result) {
+            const token= jwt.sign({
+                id: req.params.id
+            }, 'secret', {
+                expiresIn: '24h'
+            })
+            let url = 'http://best-classroom-ever.herokuapp.com/classes/acceptlink/'+ token;
+            result.url = url;
             res.status(200).json(result);
         } else {
             res.status(404).json({message: "The class with the given ID wasn't found"});
@@ -47,12 +55,7 @@ exports.invitelink = async function(req,res) {
     const classes = await classService.list(req.params.id);
     
     if (classes) {
-        const token= jwt.sign({
-            id: req.params.id
-        }, 'secret', {
-            expiresIn: '24h'
-        })
-        let url = 'http://best-classroom-ever-api.herokuapp.com/classes/acceptlink/'+ token;
+        
         res.status(200).json(url);
     } else {
         res.status(404).json({message: 'No classes available!'});
