@@ -50,15 +50,21 @@ exports.create = async function(req, res) {
         res.status(500).json({message: 'Error creating class!'});
     }
 };
-exports.invitelink = async function(req,res) {
-    
-    const classes = await classService.list(req.params.id);
-    
-    if (classes) {
-        
-        res.status(200).json(url);
-    } else {
-        res.status(404).json({message: 'No classes available!'});
+
+exports.getMember = async (req, res) => {
+    const id = req.params.id;
+    const teachers = await classService.getMembersByClassId(id, 'teacher');
+    const students = await classService.getMembersByClassId(id, 'student');
+
+    if (teachers || students) {
+        var result = {
+            teachers: teachers,
+            students: students
+        }
+        res.status(201).json(result);
+    }
+    else {
+        res.status(404).json({message: "No data!"});
     }
 }
 exports.acceptlink = async function(req,res) {
