@@ -15,9 +15,6 @@ passport.use(new LocalStrategy(
       }
     }
     return done(null, false, {message: 'incorrect'});
-    // if (username === 'admin' && password === '123456')
-    //     return done(null, {id: 1, username: username});
-    // return done(null, false, {message: 'incorrect'});
   }
 ));
 
