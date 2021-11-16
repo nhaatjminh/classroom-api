@@ -1,7 +1,7 @@
 const sgMail = require('@sendgrid/mail')
-const apiKey = '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';
+const apiKey = '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';
 
-exports.sendEmail = async (recipient, invitelink) => {
+exports.sendEmail = async (recipient, invitelink, role) => {
     sgMail.setApiKey(apiKey)
     var result = false;
 
@@ -9,7 +9,7 @@ exports.sendEmail = async (recipient, invitelink) => {
         to: recipient,
         from: '18127153@student.hcmus.edu.vn',
         subject: '[CLASS INVITATION]',
-        text: 'You are invited to this class: ' + invitelink,
+        text: 'You are invited to this class as a ' + role + ': ' + invitelink,
         // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
       }
       
