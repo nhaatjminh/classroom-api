@@ -11,6 +11,7 @@ router.post('/', classController.create);
 
 /* GET detail class. */
 router.get('/detail/:id', classController.detail);
+router.get('/invitelink/:id/:role', classController.inviteLink);
 
 router.get('/members/:id', classController.getMember);
 

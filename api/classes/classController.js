@@ -14,24 +14,34 @@ exports.list = async function(req, res) {
 };
 
 exports.detail = function(req,res) {
-
     const id = req.params.id;
     classService.detail(parseInt(id), (result) => {
         
         if(result) {
-            const token= jwt.sign({
-                id: req.params.id
-            }, 'secret', {
-                expiresIn: '24h'
-            })
-            let url = 'http://best-classroom-ever.herokuapp.com/classes/acceptlink/'+ token;
-            result.url = url;
             res.status(200).json(result);
         } else {
             res.status(404).json({message: "The class with the given ID wasn't found"});
         }
     });
 
+}
+exports.inviteLink = async function(req,res) {
+    const id = req.params.id;
+    const role = req.params.role;
+    const classes = await classService.list(id);
+
+    if (classes) {
+        const token= jwt.sign({
+            id: id,
+            role: role
+        }, 'secret', {
+            expiresIn: '24h'
+        })
+        let url = 'http://best-classroom-ever.herokuapp.com/classes/acceptlink/'+ token;
+        res.status(200).json(url);
+    } else {
+        res.status(404).json({message: 'No classes available!'});
+    }
 }
 exports.create = async function(req, res) {
     const userRoll = "teacher";
@@ -75,7 +85,7 @@ exports.acceptlink = async function(req,res) {
     
     const exist = await classMemberService.findOneAcc(payloadIDAcc.id, payloadidclass.id);
     if (exist.length <= 0) {
-        await classMemberService.addClassMember(payloadidclass.id,payloadIDAcc.id,'student');
+        await classMemberService.addClassMember(payloadidclass.id,payloadIDAcc.id,payloadidclass.role);
         return res.json("success");
     } else {
         res.json("Account Exists in class");
