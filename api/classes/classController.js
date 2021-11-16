@@ -37,7 +37,7 @@ exports.inviteLink = async function(req,res) {
         }, 'secret', {
             expiresIn: '24h'
         })
-        let url = 'http://best-classroom-ever.herokuapp.com/classes/acceptlink/'+ token;
+        let url = 'https://best-classroom-ever.herokuapp.com/classes/acceptlink/'+ token;
         res.status(200).json(url);
     } else {
         res.status(404).json({message: 'No classes available!'});
