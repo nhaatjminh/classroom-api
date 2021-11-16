@@ -2,10 +2,10 @@ const accountService = require('./accountService');
 
 exports.getInfo = async function(req, res) {
     const id = req.params.id;
-    const accs = await accountService.getInfoByUserId(id);
+    const acc = await accountService.getInfoByUserId(id);
 
-    if (accs) {
-        res.status(200).json(accs);
+    if (acc) {
+        res.status(200).json({account: acc});
     } else {
         res.status(404).json({message: 'No accounts available!'});
     }
