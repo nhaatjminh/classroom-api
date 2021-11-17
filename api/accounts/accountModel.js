@@ -23,7 +23,12 @@ Account.updateInfoForOneField = (field, infor, idOfobj) => db.execute(
 
 Account.updateInfo = (userinfo) => db.execute(
     `UPDATE accounts
-     SET name ='${userinfo.name}', phone ='${userinfo.phone}', address ='${userinfo.address}'
+     SET name ='${userinfo.name}', phone ='${userinfo.phone}', address ='${userinfo.address}', studentID ='${userinfo.studentId}'
      WHERE id = '${userinfo.id}'`);
+
+Account.checkExistedByStudentId = (studentId) => db.execute(
+    `SELECT 1
+     FROM accounts
+     WHERE studentID = '${studentId}'`);
 
 module.exports = Account;
