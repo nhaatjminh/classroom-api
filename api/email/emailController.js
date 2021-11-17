@@ -9,7 +9,7 @@ exports.sendEmail = async (req, res) => {
 
     const isTeacher = await Authorization.teacherAuthority(classId);
     if (!isTeacher){
-        res.status(404).json({message: "Error!"});
+        res.status(404).json({message: "Authorization Secure Error!"});
     }
 
     const result = await emailService.sendEmail(recipient, inviteLink, role);
