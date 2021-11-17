@@ -12,6 +12,8 @@ router.post('/', accountController.create);
 /* GET user infor. */
 router.get('/:id', accountController.getInfo);
 
+router.post('/role/:id', accountController.getRole);
+
 /* POST update user info. */
 router.post('/update', accountController.update);
   
