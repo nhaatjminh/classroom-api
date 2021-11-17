@@ -4,6 +4,7 @@ exports.list = () => accountsModel.getAccounts();
 
 exports.getInfoByUserId = (id) => accountsModel.getInfoByUserId(id);
 
+exports.isTeacherOfCLass = (userId, classId) => accountsModel.isTeacherOfCLass(id, classId);
 
 exports.findAcc = async (username) => {
     var accs = await accountsModel.getAccounts();

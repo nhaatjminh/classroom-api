@@ -1,13 +1,12 @@
-const classService = require('../../api/classes/classService');
+const accountService = require('../../api/accounts/accountService');
 
 exports.teacherAuthority = async(req, res, idClass) => {
-    const username = req.user.username;
-    if (!username) {
+    const id = req.user.id;
+    if (!id) {
         return false;
     }
 
-    classService.isCreatorOfClass(username, idClass, (result) => {
-      return result;
-  });
+    const result = accountService.isTeacherOfCLass(id, idClass);
+    return (result.role === "teacher");
 };
 

@@ -13,6 +13,6 @@ router.post('/', accountController.create);
 router.get('/:id', accountController.getInfo);
 
 /* POST update user info. */
-router.post('/update', passport.authenticate('jwt', {session: false}), accountController.update);
+router.post('/update', accountController.update);
   
 module.exports = router;
