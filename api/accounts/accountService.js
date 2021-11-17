@@ -21,6 +21,8 @@ exports.updateInfoForOneField = async (field, infor, idObj) => {
 
 exports.create = (accObj) => accountsModel.createAccount(accObj);
 
+exports.checkExistedByStudentId = (studentId) => accountsModel.checkExistedByStudentId(studentId);
+
 exports.updateInfo = (accObj) => accountsModel.updateInfo(accObj);
 
 exports.getRole = (classId, userId) => accountsModel.getRole(classId, userId);

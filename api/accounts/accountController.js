@@ -35,17 +35,23 @@ exports.create = async function(req, res) {
 exports.update = async function(req, res) {
     const editInfo = {
         id: req.user.id,
+        studentId: req.body.studentID,
         name: req.body.name,
         phone: req.body.phone,
         address: req.body.address
     }
 
-    const result = await accountService.updateInfo(editInfo);
-
-    if (result) {
-        res.status(201).json({message: 'Account updated!', result: result});
+    const result = await accountService.checkExistedByStudentId(editInfo.studentId);
+    
+    if (result.length === 0) {
+        const result2 = await accountService.updateInfo(editInfo);
+        if (result2) {
+            res.status(201).json({message: 'Account updated!', result: result2});
+        } else {
+            res.status(500).json({message: 'An Error Occur!', result: result2});
+        }
     } else {
-        res.status(500).json({message: 'Error updating account!'});
+        res.status(500).json({message: 'Student ID existed!'});
     }
 };
 

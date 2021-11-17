@@ -23,13 +23,17 @@ Account.updateInfoForOneField = (field, infor, idOfobj) => db.execute(
 
 Account.updateInfo = (userinfo) => db.execute(
     `UPDATE accounts
-     SET name ='${userinfo.name}', phone ='${userinfo.phone}', address ='${userinfo.address}'
+     SET name ='${userinfo.name}', phone ='${userinfo.phone}', address ='${userinfo.address}', studentID ='${userinfo.studentId}'
      WHERE id = '${userinfo.id}'`);
 
 Account.getRole = (classId, userId) => db.execute(
     `SELECT  role
      FROM class_accounts
      WHERE id_class = '${classId}' and id_account = '${userId}'`
-)
+);
+Account.checkExistedByStudentId = (studentId) => db.execute(
+    `SELECT 1
+     FROM accounts
+     WHERE studentID = '${studentId}'`);
 
 module.exports = Account;
