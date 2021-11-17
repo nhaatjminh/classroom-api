@@ -26,4 +26,10 @@ Account.updateInfo = (userinfo) => db.execute(
      SET name ='${userinfo.name}', phone ='${userinfo.phone}', address ='${userinfo.address}'
      WHERE id = '${userinfo.id}'`);
 
+Account.getRole = (classId, userId) => db.execute(
+    `SELECT  role
+     FROM class_accounts
+     WHERE id_class = '${classId}' and id_account = '${userId}'`
+)
+
 module.exports = Account;

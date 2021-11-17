@@ -48,3 +48,17 @@ exports.update = async function(req, res) {
         res.status(500).json({message: 'Error updating account!'});
     }
 };
+
+exports.getRole = async (req, res) => {
+    const userId = req.user.id;
+    const classId = req.body.classId;
+
+    const result = await accountService.getRole(userId, classId);
+
+    if (result) {
+        res.status(201).json(result);
+    }
+    else {
+        res.status(500).json({message: 'Error!'});
+    }
+}
