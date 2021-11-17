@@ -12,6 +12,8 @@ router.post('/', accountController.create);
 /* GET user infor. */
 router.get('/:id', accountController.getInfo);
 
+router.get('/role/:id', accountController.getRole);
+
 /* POST update user info. */
 router.post('/update', passport.authenticate('jwt', {session: false}), accountController.update);
   

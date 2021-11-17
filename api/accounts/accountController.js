@@ -56,7 +56,7 @@ exports.update = async function(req, res) {
 };
 
 exports.getRole = async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.params.id;
     const classId = req.body.classId;
 
     const result = await accountService.getRole(userId, classId);
