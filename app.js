@@ -24,10 +24,10 @@ app.use(cors());
 app.use(passport.initialize());
 
 app.use('/classes', passport.authenticate('jwt', {session: false}), classesRouter);
-app.use('/accounts', accountsRouter);
+app.use('/accounts', passport.authenticate('jwt', {session: false}), accountsRouter);
 app.use('/login', loginRouter);
 app.use('/auth', authRouter);
-app.use('/sendEmail', emailRouter);
+app.use('/sendEmail', passport.authenticate('jwt', {session: false}), emailRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
